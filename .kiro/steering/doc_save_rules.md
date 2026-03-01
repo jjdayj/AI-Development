@@ -1,6 +1,6 @@
 ---
 inclusion: manual
-enabled: false
+enabled: true
 ---
 # Kiro 执行默认规则（全局生效）
 

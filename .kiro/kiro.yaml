@@ -1,0 +1,54 @@
+# Kiro 全局配置文件
+# 用于管理模块版本和全局设置
+
+version: "1.0"
+
+# 当前激活的模块版本
+active_modules:
+  ai-dev: "v1.0"          # AI Development 自动化管理模块
+  doc-save: "v1.0"        # 会话文档自动保存模块
+  prompt-manager: "v1.0"  # 提示词版本管理模块
+
+# 模块路径模板
+# 使用 {module} 和 {version} 作为占位符
+module_path_template: ".kiro/modules/{module}/{version}"
+
+# 全局设置
+settings:
+  # 是否自动提交 doc 目录到 Git
+  auto_commit_doc: true
+  
+  # 提示词格式：json 或 markdown
+  prompt_format: "json"
+  
+  # Git 默认分支
+  default_branch: "master"
+  
+  # 是否启用详细日志
+  verbose_logging: false
+
+# 商业化配置（可选）
+commercial:
+  # 需要许可证的模块列表
+  licensed_modules:
+    - ai-dev
+    - prompt-manager
+  
+  # 许可证密钥（从环境变量或 .env 文件读取）
+  license_key: ""
+  
+  # 许可证验证服务器（可选）
+  license_server: ""
+
+# 模块依赖关系（可选）
+dependencies:
+  prompt-manager:
+    - ai-dev  # prompt-manager 依赖 ai-dev
+
+# 实验性功能开关（可选）
+experimental:
+  # 是否启用自动 RFC 记录
+  auto_rfc_recording: false
+  
+  # 是否启用提示词效果评估
+  prompt_effect_evaluation: true

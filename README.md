@@ -1,6 +1,47 @@
-你希望把「全局开关+单个步骤开关」的配置逻辑完整整合到这份完整版文档中，我会在原有文档基础上新增**配置文件相关章节**，并同步更新Python脚本代码，确保整个流程闭环且文档完整：
+# AI Development 项目管理系统
+
+## 项目简介
+
+这是一个基于 Kiro AI 的自动化项目管理系统，通过简单的中文指令即可完成项目创建、Git 初始化、GitHub 仓库创建和代码推送的全流程自动化。
+
+## 快速导航
+
+- **环境配置指南**: 查看 `附件：Kiro自动生成项目+git+推送.md` - GitHub Token 配置和环境变量设置
+- **Steering 配置**: 查看 `.kiro/steering/STEERING_GUIDE.md` - Kiro 行为规则配置说明
+- **完整使用文档**: 继续阅读本文档下方内容
+
+## 项目结构
+
+```
+AI Development/
+├── .kiro/                          # Kiro 配置目录
+│   ├── steering/                   # AI 行为规则配置
+│   │   ├── STEERING_GUIDE.md      # Steering 配置说明文档
+│   │   ├── doc_save_rules.md      # 会话文档自动保存规则（可选启用）
+│   │   └── ai-dev.md              # 项目命名和命令生成规则
+│   ├── ai-dev-script.py           # Python 自动化执行脚本
+│   ├── ai-dev-config.json         # 步骤执行开关配置
+│   └── .env                       # GitHub Token 配置（可选）
+├── 00_problem-solve-lib/          # 问题解决项目库
+├── 01_actual-project-lib/         # 实际项目库
+│   └── automation-tools/          # 自动化工具模块
+├── 附件：Kiro自动生成项目+git+推送.md  # GitHub Token 配置指南
+└── README.md                      # 本文档
+
+```
+
+## 核心功能
+
+1. **智能命名转换**: 中文指令自动转换为符合 GitHub 规范的英文命名
+2. **一键项目创建**: 自动创建目录结构和 README 文档
+3. **Git 自动化**: 自动初始化 Git 仓库、提交代码
+4. **GitHub 集成**: 自动创建远程仓库并推送代码
+5. **灵活配置**: 支持全局和单步骤开关控制执行流程
+
+---
 
 # AI Development 一键管理完整流程文档（最终完整版）
+
 ## 文档说明
 此文档为「Kiro 生成命名+Python 执行操作」的最终落地版本，已修复所有语法错误，新增Kiro输出的参数逐行说明，**新增步骤开关配置功能（全局+单个步骤）**，包含完整的环境配置、文件编写、日常使用及问题排查，可直接作为生产环境使用手册。
 

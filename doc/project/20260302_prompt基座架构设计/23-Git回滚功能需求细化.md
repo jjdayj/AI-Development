@@ -98,10 +98,12 @@ assert is_rollback_enabled(config) == False  # 使用默认值
 4. 相关文档链接
 
 **验收标准**：
-- [ ] 提示信息清晰易懂
-- [ ] 包含启用步骤
-- [ ] 包含手动命令示例
-- [ ] 包含文档链接
+- [ ] 提示以 ⚠️ 符号开头
+- [ ] 包含标题"Git 自动回滚功能已关闭"
+- [ ] 包含启用步骤（修改 kiro.yaml 的具体路径和配置项）
+- [ ] 包含至少2个手动命令示例
+- [ ] 包含至少2个文档链接
+- [ ] 提示信息总行数不超过20行（保持简洁）
 
 **测试用例**：
 ```
@@ -119,6 +121,13 @@ experimental:
 git revert HEAD
 
 提示：回滚是高风险操作，建议在熟悉流程后再启用。
+
+验证：
+- [ ] 有 ⚠️ 符号
+- [ ] 有标题
+- [ ] 有启用步骤
+- [ ] 有手动命令
+- [ ] 总行数 ≤ 20
 ```
 
 ---
@@ -351,10 +360,13 @@ assert select_rollback_method(pushed=False, user_request="reset") == "reset"
 4. 风险提示
 
 **验收标准**：
-- [ ] 信息完整清晰
-- [ ] 提交列表包含 ID 和消息
-- [ ] 文件列表准确
-- [ ] 风险提示醒目
+- [ ] 包含标题"📋 回滚信息确认"
+- [ ] 提交列表包含至少2个字段：commit ID（7位）和提交消息
+- [ ] 明确标注回滚方式（"git revert" 或 "git reset"）
+- [ ] 文件列表显示完整相对路径
+- [ ] 风险提示使用 ⚠️ 符号开头
+- [ ] 风险提示至少包含3条说明
+- [ ] 最后一行是确认提示："确认执行回滚吗？(yes/no)"
 
 **测试用例**：
 ```
@@ -380,6 +392,15 @@ assert select_rollback_method(pushed=False, user_request="reset") == "reset"
   - 如果回滚错误，可以再次 revert 恢复
 
 确认执行回滚吗？(yes/no)
+
+验证：
+- [ ] 包含 "📋 回滚信息确认" 标题
+- [ ] 提交列表格式：<7位ID>: <消息>
+- [ ] 回滚方式明确标注
+- [ ] 文件列表每行一个文件
+- [ ] 风险提示有 ⚠️ 符号
+- [ ] 风险提示有3条说明
+- [ ] 最后有确认提示
 ```
 
 ---
@@ -476,17 +497,14 @@ assert parse_confirmation("maybe") == None  # 需要重新输入
 支持通过配置控制备份行为。
 
 **详细说明**：
-配置项：
-```json
-{
-  "rollback": {
-    "backup": {
-      "enabled": true,
-      "push_to_remote": false,
-      "auto_delete_after_days": 7
-    }
-  }
-}
+配置项（在 `kiro.yaml` 中）：
+```yaml
+# Git 回滚配置
+rollback:
+  backup:
+    enabled: true                    # 是否启用备份
+    push_to_remote: false           # 是否推送到远程
+    auto_delete_after_days: 7       # 自动删除天数（0=不删除）
 ```
 
 **验收标准**：
@@ -494,16 +512,22 @@ assert parse_confirmation("maybe") == None  # 需要重新输入
 - [ ] `enabled: false` 时不创建备份
 - [ ] `push_to_remote: true` 时推送备份分支
 - [ ] 自动删除过期备份分支
+- [ ] 配置格式与 kiro.yaml 一致（YAML）
 
 **测试用例**：
-```python
+```yaml
 # TC-6.5.2-1: 禁用备份
-config = {'rollback': {'backup': {'enabled': False}}}
+rollback:
+  backup:
+    enabled: false
 执行回滚
 验证：不创建备份分支
 
 # TC-6.5.2-2: 推送备份
-config = {'rollback': {'backup': {'push_to_remote': True}}}
+rollback:
+  backup:
+    enabled: true
+    push_to_remote: true
 执行回滚
 验证：备份分支推送到远程
 ```
@@ -545,12 +569,18 @@ config = {'rollback': {'backup': {'push_to_remote': True}}}
 ## 边界情况处理
 
 ### EDGE-6.1：回滚次数超过总提交数
+**关联需求**：REQ-6.2.2（时间维度解析）、REQ-6.3.3（多次提交回滚）
+
 **场景**：用户要求回滚5次，但只有3次提交
 
 **处理方案**：
-1. 检测总提交数
-2. 提示用户实际可回滚次数
+1. 在 REQ-6.2.2 解析阶段：检测总提交数
+2. 在 REQ-6.3.3 执行前：提示用户实际可回滚次数
 3. 询问是否回滚所有提交
+
+**实现位置**：
+- 检测逻辑：`parse_rollback_count()` 函数
+- 提示逻辑：`execute_rollback()` 函数入口
 
 **测试用例**：
 ```
@@ -565,12 +595,18 @@ config = {'rollback': {'backup': {'push_to_remote': True}}}
 ---
 
 ### EDGE-6.2：commit ID 不存在
+**关联需求**：REQ-6.2.3（ID 维度解析）、REQ-6.3.4（指定 commit 回滚）
+
 **场景**：用户指定的 commit ID 不存在
 
 **处理方案**：
-1. 验证 commit ID
-2. 提示 ID 不存在
-3. 建议使用 `git log` 查看
+1. 在 REQ-6.2.3 解析阶段：验证 commit ID 格式
+2. 在 REQ-6.3.4 执行前：验证 commit ID 是否存在
+3. 提示 ID 不存在，建议使用 `git log` 查看
+
+**实现位置**：
+- 格式验证：`parse_commit_id()` 函数
+- 存在验证：`execute_rollback()` 函数
 
 **测试用例**：
 ```
@@ -585,12 +621,18 @@ git log --oneline -10
 ---
 
 ### EDGE-6.3：工作目录有未提交修改
+**关联需求**：REQ-6.3.1（回滚方式选择）、REQ-6.3.2（单次提交回滚）
+
 **场景**：工作目录有未提交的修改
 
 **处理方案**：
-1. 检测工作目录状态
-2. 提示用户先提交或暂存
+1. 在 REQ-6.3.1 执行前：检测工作目录状态（`git status --porcelain`）
+2. 如果有未提交修改：提示用户先提交或暂存
 3. 不执行回滚操作
+
+**实现位置**：
+- 检测逻辑：`check_working_directory()` 函数
+- 调用位置：`execute_rollback()` 函数入口
 
 **测试用例**：
 ```
@@ -610,12 +652,18 @@ git stash
 ---
 
 ### EDGE-6.4：回滚导致冲突
+**关联需求**：REQ-6.3.2（单次提交回滚）、REQ-6.3.3（多次提交回滚）
+
 **场景**：回滚操作导致合并冲突
 
 **处理方案**：
-1. 检测冲突
-2. 提示用户解决冲突
-3. 提供解决步骤
+1. 在 REQ-6.3.2/6.3.3 执行时：捕获 Git 冲突错误
+2. 检测冲突文件：`git diff --name-only --diff-filter=U`
+3. 提示用户解决冲突，提供解决步骤
+
+**实现位置**：
+- 冲突检测：`execute_git_revert()` 函数
+- 错误处理：异常捕获和提示
 
 **测试用例**：
 ```
@@ -623,6 +671,10 @@ git stash
 结果：冲突
 预期输出：
 ⚠️ 回滚操作产生冲突
+
+冲突文件：
+  - file1.py
+  - file2.md
 
 请手动解决冲突：
 1. 编辑冲突文件
@@ -636,12 +688,18 @@ git revert --abort
 ---
 
 ### EDGE-6.5：网络问题导致推送失败
+**关联需求**：REQ-6.3.2（单次提交回滚）、REQ-6.3.3（多次提交回滚）
+
 **场景**：回滚成功但推送失败
 
 **处理方案**：
-1. 本地回滚已完成
-2. 提示推送失败
-3. 建议手动推送
+1. 在 REQ-6.3.2/6.3.3 执行后：尝试推送到远程
+2. 捕获网络错误：超时、连接失败等
+3. 提示本地回滚已完成，建议稍后手动推送
+
+**实现位置**：
+- 推送逻辑：`push_to_remote()` 函数
+- 错误处理：网络异常捕获
 
 **测试用例**：
 ```
@@ -652,6 +710,8 @@ git revert --abort
 
 请稍后手动推送：
 git push
+
+提示：本地回滚已完成，代码已安全保存
 ```
 
 ---

@@ -3,6 +3,69 @@
 
 version: "1.0"
 
+# 工作流配置（双轨工作流）
+workflow:
+  # 默认工作流
+  default: "prompt"  # prompt / code
+  
+  # 按目录/文件自动切换工作流
+  auto_switch:
+    # Prompt 工作流规则
+    - pattern: ".kiro/steering/*.md"
+      workflow: "prompt"
+      description: "Steering 规则文件"
+    
+    - pattern: ".kiro/hooks/*.json"
+      workflow: "prompt"
+      description: "Hook 规则文件"
+    
+    - pattern: "doc/project/*.md"
+      workflow: "prompt"
+      description: "项目文档"
+    
+    - pattern: ".kiro/kiro.yaml"
+      workflow: "prompt"
+      description: "配置文件"
+    
+    # 代码工作流规则
+    - pattern: "**/*.py"
+      workflow: "code"
+      description: "Python 代码文件"
+    
+    - pattern: ".kiro/modules/*/scripts/*.py"
+      workflow: "code"
+      description: "模块脚本文件"
+    
+    - pattern: "scripts/*.py"
+      workflow: "code"
+      description: "脚本文件"
+  
+  # 快速跳过配置
+  quick_skip:
+    enabled: true  # 是否启用快速跳过
+    
+    # 自动跳过条件（满足任一条件即可跳过）
+    auto_skip_conditions:
+      - type: "line_count"
+        threshold: 10
+        description: "修改行数 < 10 行"
+      
+      - type: "file_type"
+        patterns: ["*.yaml", "*.json", "*.txt"]
+        description: "简单配置文件"
+      
+      - type: "change_type"
+        types: ["typo", "format", "comment"]
+        description: "错别字、格式化、注释修改"
+    
+    # 手动跳过关键词
+    manual_skip_keywords:
+      - "快速修改"
+      - "简单修改"
+      - "跳过流程"
+      - "quick fix"
+      - "simple change"
+
 # 当前激活的模块版本
 active_modules:
   ai-dev: "v1.0"          # AI Development 自动化管理模块

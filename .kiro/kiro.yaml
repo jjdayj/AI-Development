@@ -62,7 +62,4 @@ rollback:
     enabled: true                    # 是否启用备份
     push_to_remote: false           # 是否推送到远程
     auto_delete_after_days: 7       # 自动删除天数（0=不删除）
-  
-  # 是否自动创建备份分支（回滚前）
-  git_rollback_backup: true  # 默认开启（安全优先）
 

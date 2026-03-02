@@ -54,7 +54,7 @@ experimental:
   prompt_effect_evaluation: true
   
   # 是否启用 Git 自动回滚功能
-  git_auto_rollback: false  # 默认关闭（安全优先）
+  git_auto_rollback: true  # 测试期间启用
 
 # Git 回滚配置
 rollback:

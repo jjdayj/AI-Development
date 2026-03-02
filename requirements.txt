@@ -1,0 +1,8 @@
+# Prompt 基座项目依赖
+
+# 模块加载器依赖
+pyyaml>=6.0
+
+# ai-dev 模块依赖
+requests>=2.32.0
+python-dotenv>=1.0.0

@@ -1,0 +1,9 @@
+{
+  "global_execution": false,
+  "execution_steps": {
+    "init_project": true,
+    "local_git": true,
+    "remote_git": true
+  },
+  "default_branch": "master"
+}

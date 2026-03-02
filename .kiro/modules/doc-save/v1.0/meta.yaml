@@ -1,0 +1,10 @@
+# 文档保存模块元信息
+
+name: doc-save
+display_name: 会话文档自动保存
+version: v1.0
+author: yangzhuo
+date: 2026-03-02
+description: 自动保存每次对话的操作文档和对话记录
+category: doc
+dependencies: []

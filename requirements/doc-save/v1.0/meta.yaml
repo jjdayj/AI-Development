@@ -1,0 +1,10 @@
+# 会话文档自动保存需求元信息
+
+theme: 会话文档自动保存
+module: doc-save
+version: v1.0
+author: yangzhuo
+date: 2026-03-02
+status: 已完成
+description: 自动保存每次对话的操作文档和对话记录
+git_commit_prefix: feat(doc-save-v1.0)

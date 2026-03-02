@@ -1,0 +1,45 @@
+# 文档保存模块配置
+
+# 文档保存路径
+save_path:
+  # 根目录
+  root: "doc"
+  
+  # 子目录模板
+  # 可用变量：{date}, {theme}
+  subdirectory_template: "测试docsave功能-{date}"
+  
+  # 日期格式
+  date_format: "%Y%m%d_%H%M%S"
+
+# 保存内容
+content:
+  # 是否保存对话记录
+  save_conversation: true
+  
+  # 是否保存操作文档
+  save_operations: true
+  
+  # 是否保存会话总览
+  save_summary: true
+
+# 文件命名
+file_naming:
+  # 对话记录文件名模板
+  conversation_template: "对话_{theme}_{date}.txt"
+  
+  # 操作文档文件名模板
+  operations_template: "{theme}_{date}.md"
+  
+  # 会话总览文件名模板
+  summary_template: "会话总览_{date}.md"
+
+# 自动保存触发
+auto_save:
+  # 是否启用自动保存
+  enabled: false
+  
+  # 触发条件
+  triggers:
+    - "对话结束"
+    - "用户请求"

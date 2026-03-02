@@ -1,0 +1,21 @@
+# 需求元信息模板
+# 复制此文件到 requirements/{module-name}/{version}/meta.yaml
+
+theme: 需求主题                # 需求的简短主题
+module: module-name            # 关联的模块名称
+version: v1.0                  # 版本号（语义化版本）
+author: yangzhuo               # 作者
+date: 2026-03-03              # 创建日期（YYYY-MM-DD）
+status: 进行中                 # 状态：进行中/已完成/暂停
+description: 需求的简要描述     # 一句话描述需求
+git_commit_prefix: feat(module-v1.0)  # Git 提交前缀（可选）
+
+# 示例：
+# theme: Git提交主题化管理
+# module: git-commit
+# version: v1.0
+# author: yangzhuo
+# date: 2026-03-03
+# status: 进行中
+# description: 实现Git提交与需求主题关联，自动生成提交信息
+# git_commit_prefix: feat(git-commit-v1.0)

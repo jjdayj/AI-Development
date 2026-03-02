@@ -1,0 +1,10 @@
+# 双轨工作流需求元信息
+
+theme: 双轨工作流
+module: workflow
+version: v1.0
+author: yangzhuo
+date: 2026-03-02
+status: 已完成
+description: 智能识别并执行 Prompt 工作流或代码工作流，支持快速跳过和强制总结反思
+git_commit_prefix: feat(workflow-v1.0)

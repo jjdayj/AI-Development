@@ -1,0 +1,62 @@
+# {模块名称}
+
+## 📋 模块信息
+
+- **模块名称**: {module-name}
+- **版本**: {version}
+- **分类**: {category}
+- **作者**: {author}
+- **创建日期**: {date}
+
+## 🎯 功能说明
+
+{模块功能的详细描述}
+
+## 📁 目录结构
+
+```
+{module-name}/
+├── {version}/
+│   ├── meta.yaml           # 模块元信息
+│   ├── config.yaml         # 模块配置
+│   ├── steering/           # Steering 规则
+│   │   └── {module}.md
+│   ├── scripts/            # 脚本（可选）
+│   ├── hooks/              # Hooks（可选）
+│   └── README.md           # 本文件
+```
+
+## ⚙️ 配置说明
+
+### 全局开关
+
+在 `.kiro/config.yaml` 中启用/禁用模块：
+
+```yaml
+modules:
+  {module-name}:
+    enabled: true
+    version: {version}
+```
+
+### 模块配置
+
+在 `config.yaml` 中配置模块细节：
+
+```yaml
+# 具体配置项
+```
+
+## 📖 使用方法
+
+{使用说明}
+
+## 🔗 相关文档
+
+- 需求文档: `requirements/{module-name}/{version}/requirement.md`
+- 项目文档: `doc/project/{module-name}/`
+
+## 📝 更新日志
+
+### {version} ({date})
+- 初始版本

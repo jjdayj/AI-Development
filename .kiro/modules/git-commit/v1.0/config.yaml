@@ -1,0 +1,41 @@
+# Git 提交模块配置
+
+# 提交信息格式
+commit_message:
+  # 提交信息模板
+  # 可用变量：{prefix}, {theme}, {description}
+  template: "{prefix}: {description}"
+  
+  # 是否自动从 meta.yaml 读取前缀
+  auto_prefix: true
+  
+  # 默认前缀（当无法读取 meta.yaml 时使用）
+  default_prefix: "chore"
+
+# 需求元信息路径
+requirement_meta:
+  # 路径模板
+  # 可用变量：{module}, {version}
+  path_template: "requirements/{module}/{version}/meta.yaml"
+  
+  # 是否必须存在 meta.yaml
+  required: false
+
+# 提交前检查
+pre_commit:
+  # 检查工作目录是否干净
+  check_clean: true
+  
+  # 检查是否有暂存的文件
+  check_staged: true
+  
+  # 是否运行测试
+  run_tests: false
+
+# 提交后操作
+post_commit:
+  # 是否自动推送
+  auto_push: true
+  
+  # 是否更新 meta.yaml 状态
+  update_meta_status: false

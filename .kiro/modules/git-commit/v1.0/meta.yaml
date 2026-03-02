@@ -1,0 +1,10 @@
+# Git 提交模块元信息
+
+name: git-commit
+display_name: Git 提交管理
+version: v1.0
+author: yangzhuo
+date: 2026-03-02
+description: Git 提交主题化管理，自动读取需求元信息生成提交信息
+category: git
+dependencies: []

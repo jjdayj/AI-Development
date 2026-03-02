@@ -1,0 +1,178 @@
+# Kiro 顶层配置文件
+# 管理全局开关和模块优先级
+
+version: "2.0"  # 配置文件版本
+
+# ========================================
+# 模块管理
+# ========================================
+
+# 模块全局开关（一键启用/禁用）
+modules:
+  ai-dev:
+    enabled: true
+    version: v1.0
+    priority: 100  # 优先级（数字越大优先级越高）
+  
+  doc-save:
+    enabled: false  # 默认禁用
+    version: v1.0
+    priority: 90
+  
+  git-commit:
+    enabled: true
+    version: v1.0
+    priority: 80
+  
+  git-rollback:
+    enabled: true
+    version: v1.0
+    priority: 70
+  
+  workflow:
+    enabled: true
+    version: v1.0
+    priority: 200  # 工作流优先级最高
+
+# 模块路径模板
+module_path_template: ".kiro/modules/{module}/{version}"
+
+# ========================================
+# 工作流配置
+# ========================================
+
+workflow:
+  # 默认工作流
+  default: "prompt"  # prompt / code
+  
+  # 快速跳过配置
+  quick_skip:
+    enabled: true
+    
+    # 自动跳过条件
+    auto_skip_conditions:
+      - type: "line_count"
+        threshold: 10
+        description: "修改行数 < 10 行"
+      
+      - type: "file_type"
+        patterns: ["*.yaml", "*.json", "*.txt"]
+        description: "简单配置文件"
+      
+      - type: "change_type"
+        types: ["typo", "format", "comment"]
+        description: "错别字、格式化、注释修改"
+    
+    # 手动跳过关键词
+    manual_skip_keywords:
+      - "快速修改"
+      - "简单修改"
+      - "跳过流程"
+      - "quick fix"
+      - "simple change"
+      - "skip workflow"
+  
+  # 按目录/文件自动切换工作流
+  auto_switch:
+    # Prompt 工作流规则
+    - pattern: ".kiro/steering/*.md"
+      workflow: "prompt"
+      description: "Steering 规则文件"
+    
+    - pattern: ".kiro/modules/*/steering/*.md"
+      workflow: "prompt"
+      description: "模块 Steering 规则"
+    
+    - pattern: ".kiro/hooks/*.json"
+      workflow: "prompt"
+      description: "Hook 规则文件"
+    
+    - pattern: "doc/project/**/*.md"
+      workflow: "prompt"
+      description: "项目文档"
+    
+    - pattern: ".kiro/config.yaml"
+      workflow: "prompt"
+      description: "配置文件"
+    
+    - pattern: ".kiro/kiro.yaml"
+      workflow: "prompt"
+      description: "旧配置文件（兼容）"
+    
+    # 代码工作流规则
+    - pattern: "**/*.py"
+      workflow: "code"
+      description: "Python 代码文件"
+    
+    - pattern: ".kiro/modules/*/scripts/*.py"
+      workflow: "code"
+      description: "模块脚本文件"
+    
+    - pattern: "scripts/*.py"
+      workflow: "code"
+      description: "脚本文件"
+    
+    - pattern: "tests/*.py"
+      workflow: "code"
+      description: "测试文件"
+
+# ========================================
+# 实验性功能
+# ========================================
+
+experimental:
+  # Git 自动回滚功能
+  git_auto_rollback: true
+  
+  # 自动 RFC 记录
+  auto_rfc_recording: false
+  
+  # 提示词效果评估
+  prompt_effect_evaluation: true
+
+# ========================================
+# Git 配置
+# ========================================
+
+git:
+  # 默认分支
+  default_branch: "master"
+  
+  # 是否自动提交 doc 目录
+  auto_commit_doc: true
+  
+  # 回滚配置
+  rollback:
+    backup:
+      enabled: true
+      push_to_remote: false
+      auto_delete_after_days: 7
+
+# ========================================
+# 全局设置
+# ========================================
+
+settings:
+  # 提示词格式
+  prompt_format: "json"
+  
+  # 是否启用详细日志
+  verbose_logging: false
+  
+  # 作者信息
+  default_author: "yangzhuo"
+
+# ========================================
+# 商业化配置（可选）
+# ========================================
+
+commercial:
+  # 需要许可证的模块
+  licensed_modules:
+    - ai-dev
+  
+  # 许可证密钥
+  license_key: ""
+  
+  # 许可证服务器
+  license_server: ""

@@ -1,0 +1,10 @@
+# AI 开发自动化需求元信息
+
+theme: AI 开发自动化
+module: ai-dev
+version: v1.0
+author: yangzhuo
+date: 2026-03-02
+status: 已完成
+description: AI 驱动的开发自动化工具，支持代码生成、测试和格式化
+git_commit_prefix: feat(ai-dev-v1.0)

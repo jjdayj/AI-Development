@@ -87,6 +87,12 @@ pip install requests gitpython python-dotenv
    [Environment]::SetEnvironmentVariable("GITHUB_TOKEN", "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", "User")
    ```
 4. **重启Kiro** 使环境变量生效。
+5. **验证配置是否成功**（重启Kiro后执行）：
+   ```powershell
+   [Environment]::GetEnvironmentVariable("GITHUB_TOKEN", "User")
+   ```
+   ✅ 成功标准：显示你配置的Token（ghp_开头的字符串）  
+   ❌ 失败标准：显示空白或未找到，需重新执行步骤3并确保重启Kiro
 
 #### 方案B：.env文件（仅当前目录生效，更安全）
 在 `D:\AI Development\.kiro\.env` 文件中写入以下内容（替换为你的信息）：
@@ -94,6 +100,12 @@ pip install requests gitpython python-dotenv
 GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  # 你的GitHub Token
 GITHUB_USER=jjdayj  # 你的GitHub用户名（如jjdayj）
 ```
+**验证配置是否成功**：
+```powershell
+type "D:\AI Development\.kiro\.env"
+```
+✅ 成功标准：显示文件内容，包含GITHUB_TOKEN和GITHUB_USER  
+❌ 失败标准：提示文件不存在或内容为空，需重新创建.env文件
 
 ### 步骤4：配置步骤执行开关（新增，核心）
 在 `D:\AI Development\.kiro\ai-dev-config.json` 文件中写入以下内容：

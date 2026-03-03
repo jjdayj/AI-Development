@@ -6,7 +6,46 @@
 
 **重构日期**：2026-03-03  
 **重构版本**：v2.0  
-**原版本**：v1.0
+**原版本**：v1.0  
+**最后更新**：2026-03-03（修复 5 个关键问题）
+
+---
+
+## 修复问题清单
+
+本次重构修复了以下 5 个关键问题：
+
+### ✅ Problem 4 (High) - 已完成
+**问题**：三个模块的数据格式兼容性文档缺少统一规范  
+**修复**：创建统一的数据格式规范文档（`.kiro/specs/data-format-specification.md`）
+
+### ✅ Problem 5 (High) - 已完成
+**问题**：缺少实施顺序依赖校验机制 - 上游模块完成检查存在但无输出格式验证  
+**修复**：
+- 动态模块加载器：新增任务 0.6（定义输出格式规范）和 0.7（创建输出格式校验工具）
+- Git 提交模块：更新任务 0.2，使用上游模块的输出格式校验工具
+- VibCoding 工作流：更新任务 0.3，运行格式校验工具并生成兼容性报告
+
+### ✅ Problem 1 (Medium) - 已完成
+**问题**：VibCoding 测试策略不合理 - 标记所有属性测试为"手动"但设计文档定义了 25 个属性需要 100+ 次迭代  
+**修复**：
+- 新增任务 1.4：创建 Python 辅助脚本（input_validator.py, version_recommender.py, meta_generator.py, context_writer.py）
+- 新增任务 1.6：编写 Python 辅助脚本的属性测试（7 个核心属性，每个最少 100 次迭代）
+- 更新测试策略：核心逻辑通过 Python 辅助脚本实现并进行属性测试，Prompt 工程部分保留手动测试
+
+### ✅ Problem 2 (Medium) - 已完成
+**问题**：动态模块加载器缺少 Prompt 逻辑可执行性验证 - 任务 14.3 缺少具体步骤  
+**修复**：
+- 扩展任务 14.3：创建 `tests/prompt_execution_test.py` 测试脚本
+- 实现 3 个测试场景（加载流程、配置读取、错误处理）
+- 实现 3 个测试函数（simulate_prompt_execution, verify_python_call, check_output_consistency）
+
+### ✅ Problem 3 (Low) - 已完成
+**问题**：Git 提交模块的敏感文件默认规则不够具体 - 任务 7.1 需要具体的默认模式  
+**修复**：
+- 扩展任务 7.1：明确列出敏感文件匹配规则（密钥文件、环境配置、凭证文件、SSH 密钥、云服务凭证）
+- 明确列出敏感目录规则（.ssh/, .aws/, .gcp/, .azure/, secrets/）
+- 指定配置文件位置（`.kiro/modules/git-commit/v1.0/config/default_sensitive_patterns.yaml`）
 
 ---
 
@@ -296,16 +335,29 @@
 |---------|--------------|--------------|----------------|
 | 新增阶段 | 1（阶段 0） | 1（阶段 0） | 2（阶段 0, 1） |
 | 任务顺序调整 | 2 处 | 4 处 | 1 处（拆分） |
-| 新增功能 | 4 项 | 2 项 | 3 项 |
-| 核心属性测试改为必选 | 15 个 | 28 个 | 转化为手动测试 |
-| 新增兼容性校验 | 1 项 | 2 项 | 2 项 |
+| 新增功能 | 6 项 | 3 项 | 5 项 |
+| 核心属性测试改为必选 | 15 个 | 28 个 | 7 个（Python 辅助脚本） |
+| 新增兼容性校验 | 3 项 | 3 项 | 3 项 |
 
-### 5.3 风险降低
+### 5.3 问题修复详细统计
+
+| 问题编号 | 优先级 | 问题描述 | 修复任务数 | 影响模块 |
+|---------|-------|---------|-----------|---------|
+| Problem 4 | High | 数据格式兼容性文档缺失 | 1 个文档 | 全部 3 个模块 |
+| Problem 5 | High | 输出格式验证机制缺失 | 4 个任务 | 全部 3 个模块 |
+| Problem 1 | Medium | VibCoding 测试策略不合理 | 3 个任务 | VibCoding 工作流 |
+| Problem 2 | Medium | Prompt 可执行性验证缺失 | 1 个任务 | 动态模块加载器 |
+| Problem 3 | Low | 敏感文件规则不具体 | 1 个任务 | Git 提交自动化 |
+
+**总计**：修复 5 个问题，新增/修改 10 个任务，创建 1 个统一文档
+
+### 5.4 风险降低
 
 1. **依赖倒置风险**：通过前置校验任务完全消除
-2. **格式不兼容风险**：通过数据格式规范文档和兼容性测试降低到最低
-3. **核心逻辑错误风险**：通过核心属性测试改为必选大幅降低
+2. **格式不兼容风险**：通过统一数据格式规范文档、输出格式校验工具和兼容性测试降低到最低
+3. **核心逻辑错误风险**：通过核心属性测试改为必选（动态加载器 15 个、Git 提交 28 个、VibCoding 7 个）大幅降低
 4. **返工风险**：通过明确的实施顺序和里程碑降低
+5. **Prompt 不可执行风险**：通过 Prompt 逻辑可执行性测试和 Python 辅助脚本降低
 
 ---
 
@@ -322,3 +374,133 @@
 **文档版本**：v1.0  
 **创建日期**：2026-03-03  
 **状态**：✅ 完成
+
+
+---
+
+## 七、问题修复详细说明
+
+### Problem 5 (High) - 输出格式验证机制
+
+**修复内容**：
+
+1. **动态模块加载器**（`.kiro/specs/dynamic-module-loader/tasks-v2.md`）：
+   - 新增任务 0.6：定义输出格式规范
+     - 创建 `output-format-spec.md` 文档
+     - 定义 current_context.yaml 的标准输出格式
+     - 定义模块配置的标准输出格式
+     - 定义 Steering 加载结果的标准格式
+   - 新增任务 0.7：创建输出格式校验工具
+     - 创建 `src/output_validator.py` 模块
+     - 实现 `validate_context_output()` 函数
+     - 实现 `validate_module_config_output()` 函数
+     - 实现 `validate_steering_output()` 函数
+     - 实现 `generate_validation_report()` 函数
+   - 新增任务 0.8：编写输出格式校验测试
+
+2. **Git 提交自动化模块**（`.kiro/specs/git-commit-automation/tasks-v2.md`）：
+   - 更新任务 0.2：验证 current_context.yaml 格式规范已冻结并执行格式校验
+     - 使用上游模块的输出格式校验工具（`output_validator.py`）
+     - 运行格式校验并生成兼容性报告
+     - 确保校验通过后才继续实施
+
+3. **VibCoding 工作流增强模块**（`.kiro/specs/vibcoding-workflow-enhancement/tasks-v2.md`）：
+   - 更新任务 0.3：验证数据格式完全兼容并执行格式校验
+     - 使用动态模块加载器的输出格式校验工具
+     - 运行格式校验并生成兼容性报告
+     - 确保所有格式校验通过后才继续实施
+
+**影响**：确保三模块的数据传递格式完全兼容，避免因格式不一致导致的集成问题。
+
+---
+
+### Problem 1 (Medium) - VibCoding 测试策略
+
+**修复内容**：
+
+1. **新增任务 1.4**：创建 Python 辅助脚本用于核心逻辑测试
+   - `scripts/input_validator.py`（输入验证逻辑）
+   - `scripts/version_recommender.py`（版本推荐逻辑）
+   - `scripts/meta_generator.py`（meta.yaml 生成逻辑）
+   - `scripts/context_writer.py`（current_context.yaml 写入逻辑）
+
+2. **新增任务 1.6**：编写 Python 辅助脚本的属性测试（必选）
+   - 属性 1：kebab-case 验证正确性
+   - 属性 2：SemVer 2.0.0 验证正确性
+   - 属性 3：版本推荐逻辑正确性
+   - 属性 4：meta.yaml 生成完整性
+   - 属性 5：git_commit_prefix 格式正确性
+   - 属性 6：current_context.yaml 嵌套结构正确性
+   - 属性 7：current_context.yaml Round-trip 一致性
+   - 每个属性测试最少 100 次迭代
+
+3. **更新测试策略**：
+   - 核心逻辑通过 Python 辅助脚本实现并进行属性测试（必选）
+   - Prompt 工程部分保留手动测试用例（必选）
+   - 端到端测试、兼容性测试、降级测试（必选）
+
+4. **更新目录结构**：
+   - 新增 `scripts/` 目录（Python 辅助脚本）
+   - 新增 `tests/property/` 目录（属性测试）
+   - 新增 `tests/manual/` 目录（手动测试用例）
+
+**影响**：确保核心逻辑的正确性，同时保持 Prompt 工程的灵活性。
+
+---
+
+### Problem 2 (Medium) - Prompt 可执行性验证
+
+**修复内容**：
+
+1. **扩展任务 14.3**：添加 Prompt 逻辑与 Python 代码的联动测试
+   - 创建 `tests/prompt_execution_test.py` 测试脚本
+   - 实现测试场景 1：验证 main.md 中的加载流程能否正确调用 `dynamic_loader.py`
+   - 实现测试场景 2：验证 main.md 中的配置读取逻辑能否正确调用 `config_reader.py`
+   - 实现测试场景 3：验证 main.md 中的错误处理逻辑能否正确调用错误处理函数
+   - 实现 `simulate_prompt_execution()` 函数（模拟 Prompt 指令执行）
+   - 实现 `verify_python_call()` 函数（验证 Python 函数被正确调用）
+   - 实现 `check_output_consistency()` 函数（验证输出与预期一致）
+   - 编写测试报告生成逻辑
+
+**影响**：确保 main.md 中的 Prompt 逻辑能够正确调用 Python 核心代码，避免 Prompt 与代码脱节。
+
+---
+
+### Problem 3 (Low) - 敏感文件默认规则
+
+**修复内容**：
+
+1. **扩展任务 7.1**：创建敏感文件规则配置
+   - 定义内置的敏感文件匹配规则：
+     - 密钥文件：`*.key`, `*.pem`, `*.p12`, `*.pfx`, `*.cer`, `*.crt`, `*.der`
+     - 环境配置：`.env`, `.env.*`, `*.env`, `config.local.*`
+     - 凭证文件：`credentials`, `*.credentials`, `secrets.yaml`, `secrets.json`
+     - SSH 密钥：`id_rsa`, `id_dsa`, `id_ecdsa`, `id_ed25519`, `*.ppk`
+     - 云服务凭证：`*.pem`, `gcloud-key.json`, `service-account.json`
+   - 定义敏感目录规则：
+     - `.ssh/`（SSH 密钥目录）
+     - `.aws/`（AWS 凭证目录）
+     - `.gcp/`（GCP 凭证目录）
+     - `.azure/`（Azure 凭证目录）
+     - `secrets/`（通用密钥目录）
+   - 配置文件位置：`.kiro/modules/git-commit/v1.0/config/default_sensitive_patterns.yaml`
+
+**影响**：提供开箱即用的敏感文件检测规则，提高安全性。
+
+---
+
+## 八、实施建议更新
+
+1. **立即开始第一阶段**：动态模块加载器的实现
+2. **严格按照阶段顺序执行**：不要跳过前置校验任务
+3. **每个 Checkpoint 都要认真验证**：确保质量
+4. **及时更新数据格式规范文档**：确保三模块格式一致
+5. **运行输出格式校验工具**：在每个模块完成后验证输出格式
+6. **Python 辅助脚本优先实现**：VibCoding 模块先实现 Python 辅助脚本并通过属性测试
+7. **保持沟通**：遇到问题及时向用户提问
+
+---
+
+**文档版本**：v1.1  
+**最后更新**：2026-03-03  
+**状态**：✅ 完成（所有 5 个问题已修复）

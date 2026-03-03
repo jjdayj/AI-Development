@@ -51,6 +51,28 @@
     - 测试备份机制的正确性
     - 测试回滚机制的正确性
     - _需求：需求 21_
+  
+  - [ ] 0.6 定义输出格式规范（新增）
+    - 创建 `output-format-spec.md` 文档
+    - 定义 current_context.yaml 的标准输出格式
+    - 定义模块配置的标准输出格式
+    - 定义 Steering 加载结果的标准格式
+    - 提供格式示例和字段说明
+    - _需求：需求 17, 18, 19_
+  
+  - [ ] 0.7 创建输出格式校验工具（新增）
+    - 创建 `src/output_validator.py` 模块
+    - 实现 `validate_context_output()` 函数（校验 current_context.yaml 格式）
+    - 实现 `validate_module_config_output()` 函数（校验模块配置格式）
+    - 实现 `validate_steering_output()` 函数（校验 Steering 加载结果）
+    - 实现 `generate_validation_report()` 函数（生成校验报告）
+    - _需求：需求 17, 18, 19_
+  
+  - [ ] 0.8 编写输出格式校验测试
+    - 测试各种格式校验函数
+    - 测试校验报告生成
+    - 测试错误检测能力
+    - _需求：需求 17, 18, 19_
 
 ---
 
@@ -335,8 +357,14 @@
     - _需求：需求 16.5_
   
   - [ ] 14.3 添加 Prompt 逻辑与 Python 代码的联动测试（新增）
-    - 验证 main.md 中的自然语言逻辑能否正确调用 Python 核心代码
-    - 测试 Prompt 指令的可执行性
+    - 创建 `tests/prompt_execution_test.py` 测试脚本
+    - 实现测试场景 1：验证 main.md 中的加载流程能否正确调用 `dynamic_loader.py`
+    - 实现测试场景 2：验证 main.md 中的配置读取逻辑能否正确调用 `config_reader.py`
+    - 实现测试场景 3：验证 main.md 中的错误处理逻辑能否正确调用错误处理函数
+    - 实现 `simulate_prompt_execution()` 函数（模拟 Prompt 指令执行）
+    - 实现 `verify_python_call()` 函数（验证 Python 函数被正确调用）
+    - 实现 `check_output_consistency()` 函数（验证输出与预期一致）
+    - 编写测试报告生成逻辑
     - _需求：需求 16.1, 16.2_
 
 - [ ] 15. 创建 Workflow 模块双版本支持

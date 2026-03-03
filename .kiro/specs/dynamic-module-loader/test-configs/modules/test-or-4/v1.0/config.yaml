@@ -1,0 +1,11 @@
+# 测试模块配置：test-or-4
+# 用于测试 OR 逻辑条件（所有条件都不满足）
+
+# OR 逻辑：所有条件都不满足的情况
+# 当前上下文不满足任何条件，应该不激活
+activation_conditions:
+  or:
+    - directory_match:
+        - "src/*"
+    - file_type_match:
+        - ".py"

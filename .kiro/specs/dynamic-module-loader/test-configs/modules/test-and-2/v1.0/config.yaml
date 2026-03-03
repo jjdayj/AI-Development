@@ -1,0 +1,11 @@
+# 测试模块配置：test-and-2
+# 用于测试 AND 逻辑条件（多个目录匹配）
+
+# AND 逻辑：两个目录匹配条件都必须满足
+# 当前目录必须同时匹配 .kiro/* 和 doc/project/*（这是不可能的）
+activation_conditions:
+  and:
+    - directory_match:
+        - ".kiro/*"
+    - directory_match:
+        - "doc/project/*"

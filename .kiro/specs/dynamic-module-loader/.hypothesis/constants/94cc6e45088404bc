@@ -1,0 +1,4 @@
+# file: D:\AI Development\.kiro\specs\dynamic-module-loader\src\context_manager.py
+# hypothesis_version: 6.151.9
+
+['%Y%m%d_%H%M%S', '+00:00', 'Z', 'active_requirement', 'created_at', 'current_directory', 'current_file_path', 'current_file_type', 'environment', 'environment 必须是字典类型', 'in_progress', 'module_name', 'r', 'requirement_path', 'requirement_title', 'status', 'updated_at', 'updated_at 时间戳格式无效', 'utf-8', 'v1.0', 'version', 'w', '上下文必须是字典类型', '修复 environment 字段类型', '动态模块加载器']

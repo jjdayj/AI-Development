@@ -1,0 +1,6 @@
+# 测试模块配置：test-always
+# 用于测试始终激活条件（作为对照组）
+
+# 始终激活，无条件
+activation_conditions:
+  always: true

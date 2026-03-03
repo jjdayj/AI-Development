@@ -1,0 +1,9 @@
+# 测试模块配置：module-x
+# 用于测试循环依赖检测（简单循环）
+
+activation_conditions:
+  always: true
+
+# module-x 依赖 module-y
+dependencies:
+  - module-y

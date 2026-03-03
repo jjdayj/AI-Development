@@ -1,0 +1,39 @@
+# 测试配置文件：全局开关过滤测试
+# 
+# 测试目标：验证系统能够正确过滤 enabled: false 的模块
+# 
+# 需求追溯：
+# - 需求 2.2：当模块的 enabled: false 时，系统应直接跳过该模块
+# - 需求 2.3：当模块的 enabled: true 时，系统应继续检查该模块的激活条件
+# - 需求 5.1：全局开关为 false 时，激活状态应为 false
+# 
+# 预期结果：
+# - 成功读取配置文件
+# - workflow 模块因 enabled: false 被过滤，不应出现在加载流程中
+# - git-rollback 模块因 enabled: false 被过滤，不应出现在加载流程中
+# - 只加载 2 个模块：ai-dev, git-commit
+# - 加载顺序：ai-dev (100) → git-commit (80)
+# - 日志中应明确标注 workflow 和 git-rollback 的全局开关状态为 false
+
+version: "2.0"
+
+modules:
+  workflow:
+    enabled: false  # 全局开关关闭，应该被过滤
+    version: v1.0
+    priority: 200
+  
+  ai-dev:
+    enabled: true   # 全局开关开启，应该被加载
+    version: v1.0
+    priority: 100
+  
+  git-commit:
+    enabled: true   # 全局开关开启，应该被加载
+    version: v1.0
+    priority: 80
+  
+  git-rollback:
+    enabled: false  # 全局开关关闭，应该被过滤
+    version: v1.0
+    priority: 70

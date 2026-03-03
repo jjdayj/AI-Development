@@ -1,0 +1,50 @@
+# 测试配置文件：AND 逻辑条件测试
+# 
+# 测试目标：验证系统能够正确处理 AND 逻辑组合的激活条件
+# 
+# 需求追溯：
+# - 需求 4.3：当模块配置了多个条件时，系统应支持 AND/OR 逻辑组合
+# - AND 逻辑：所有子条件都必须满足，模块才会激活
+# 
+# 测试场景：
+# 1. test-and-1: 要求同时满足目录匹配和文件类型匹配
+# 2. test-and-2: 要求同时满足多个目录匹配条件
+# 3. test-always: 始终激活（作为对照组）
+# 
+# 测试上下文：
+# - 当前目录：.kiro/steering/
+# - 当前文件：main.md
+# - 当前文件类型：.md
+# 
+# 预期结果：
+# - test-and-1 应该激活（目录匹配 .kiro/steering/* 且文件类型为 .md）
+# - test-and-2 应该不激活（目录不匹配 doc/project/*）
+# - test-always 应该激活（无条件）
+# - 最终加载：2 个模块（test-and-1, test-always）
+
+version: "2.0"
+
+modules:
+  test-and-1:
+    enabled: true
+    version: v1.0
+    priority: 100
+    # 配置在模块配置文件中
+    # 条件：AND (directory_match: .kiro/steering/*, file_type_match: .md)
+    # 预期：激活（两个条件都满足）
+  
+  test-and-2:
+    enabled: true
+    version: v1.0
+    priority: 90
+    # 配置在模块配置文件中
+    # 条件：AND (directory_match: .kiro/*, directory_match: doc/project/*)
+    # 预期：不激活（第二个条件不满足）
+  
+  test-always:
+    enabled: true
+    version: v1.0
+    priority: 80
+    # 配置在模块配置文件中
+    # 条件：always: true
+    # 预期：激活（无条件）

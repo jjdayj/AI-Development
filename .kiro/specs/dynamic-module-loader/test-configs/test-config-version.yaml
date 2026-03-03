@@ -1,0 +1,52 @@
+# 测试配置文件：版本号校验测试
+# 
+# 测试目标：验证系统能够正确校验模块版本号是否符合 SemVer 2.0.0 规范
+# 
+# 需求追溯：
+# - 需求 11：支持模块版本管理
+# - 需求 12：Workflow 模块的双版本管理
+# - 需求 13.3：如果版本号不符合 SemVer 规范，则系统应输出警告并跳过该模块
+# 
+# SemVer 2.0.0 规范：
+# - 格式：MAJOR.MINOR.PATCH[-prerelease][+build]
+# - 支持可选的 'v' 前缀
+# - 支持预发布版本（如 -alpha, -beta, -rc.1）
+# - 支持构建元数据（如 +20130313144700）
+# - 支持版本后缀（如 -simple, -complex）
+# 
+# 预期结果：
+# - 成功读取配置文件
+# - workflow 模块版本号 "invalid-version" 不符合 SemVer 规范，应输出警告并跳过
+# - ai-dev 模块版本号 "1.0" 不符合 SemVer 规范（缺少 PATCH），应输出警告并跳过
+# - git-commit 模块版本号 "v1.0.0" 符合规范，应成功加载
+# - git-rollback 模块版本号 "v1.0-simple" 符合规范（带后缀），应成功加载
+# - doc-save 模块版本号 "v2.1.3-alpha.1" 符合规范（预发布版本），应成功加载
+# - 最终加载摘要：3 个成功，2 个失败
+
+version: "2.0"
+
+modules:
+  workflow:
+    enabled: true
+    version: invalid-version  # 不符合 SemVer 规范 - 应该被跳过
+    priority: 200
+  
+  ai-dev:
+    enabled: true
+    version: "1.0"  # 不符合 SemVer 规范（缺少 PATCH）- 应该被跳过
+    priority: 100
+  
+  git-commit:
+    enabled: true
+    version: v1.0.0  # 符合 SemVer 规范 - 应该成功加载
+    priority: 80
+  
+  git-rollback:
+    enabled: true
+    version: v1.0-simple  # 符合 SemVer 规范（带后缀）- 应该成功加载
+    priority: 70
+  
+  doc-save:
+    enabled: true
+    version: v2.1.3-alpha.1  # 符合 SemVer 规范（预发布版本）- 应该成功加载
+    priority: 90

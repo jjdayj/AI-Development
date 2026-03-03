@@ -1,0 +1,21 @@
+# 工作流模块配置（简化版）
+
+# 默认工作流类型
+default_workflow: prompt  # prompt / code
+
+# Phase 5 总结反思配置
+phase5:
+  mandatory: false  # 简化版不强制执行 Phase 5
+  generate_docs: false  # 简化版不生成文档
+  
+  # 文档生成配置
+  docs:
+    quick_start: false  # 不生成快速入门指南
+    detailed: false     # 不生成详细说明文档
+    summary: false      # 不生成总结与反思文档
+
+# 工作流时间预估（小时）
+time_estimates:
+  prompt_workflow: 1.0  # Prompt 工作流预计时间（简化版）
+  code_workflow: 4.0    # 代码工作流预计时间（简化版）
+  quick_fix: 0.2        # 快速修改预计时间

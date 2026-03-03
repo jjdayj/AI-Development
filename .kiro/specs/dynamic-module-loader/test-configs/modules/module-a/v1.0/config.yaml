@@ -1,0 +1,9 @@
+# 测试模块配置：module-a
+# 用于测试依赖关系校验
+
+activation_conditions:
+  always: true
+
+# module-a 依赖 module-b
+dependencies:
+  - module-b

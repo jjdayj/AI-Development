@@ -1,0 +1,11 @@
+# 测试模块配置：test-or-2
+# 用于测试 OR 逻辑条件（多个目录匹配）
+
+# OR 逻辑：多个目录匹配条件
+# 只要满足其中一个目录匹配就激活
+activation_conditions:
+  or:
+    - directory_match:
+        - ".kiro/*"
+    - directory_match:
+        - "doc/project/*"

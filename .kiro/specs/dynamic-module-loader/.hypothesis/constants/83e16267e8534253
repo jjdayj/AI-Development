@@ -1,0 +1,4 @@
+# file: D:\AI Development\.kiro\specs\dynamic-module-loader\src\dynamic_loader.py
+# hypothesis_version: 6.151.9
+
+[500, '-', '.kiro', '.md', '=', '__main__', 'always', 'current_directory', 'current_file', 'current_file_type', 'dependencies', 'enabled', 'environment', 'failed_count', 'failed_modules', 'loaded_count', 'loaded_modules', 'main.md', 'merged_config', 'module', 'module_config', 'modules', 'name', 'priority', 'reason', 'steering', 'total_count', 'version', '加载失败的模块:', '加载失败！', '加载成功！', '加载摘要', '动态模块加载器 - 演示', '已加载', '已加载的模块:', '开始整合 Prompt 上下文', '成功加载的模块:', '所有模块依赖校验失败', '模块排序完成（按优先级从高到低）:', '步骤 10: 输出加载日志', '步骤 1: 读取顶层配置', '步骤 2: 筛选启用的模块', '步骤 3: 读取模块配置', '步骤 4: 合并配置', '步骤 5: 计算激活状态', '步骤 6: 校验依赖关系', '步骤 7: 按优先级排序', '步骤 8: 加载 Steering 文件', '步骤 9: 整合 Prompt 上下文', '没有启用的模块', '没有激活的模块']

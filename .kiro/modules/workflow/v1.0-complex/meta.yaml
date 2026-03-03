@@ -1,0 +1,10 @@
+# 工作流模块元信息
+
+name: workflow
+display_name: 双轨工作流（完整版）
+version: v1.0-complex
+author: yangzhuo
+date: 2026-03-02
+description: 智能识别并执行 Prompt 工作流或代码工作流，支持快速跳过和强制总结反思（完整版，包含所有功能）
+category: workflow
+dependencies: []

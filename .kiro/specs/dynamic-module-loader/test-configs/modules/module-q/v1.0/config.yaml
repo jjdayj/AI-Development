@@ -1,0 +1,9 @@
+# 测试模块配置：module-q
+# 用于测试循环依赖检测（三角循环）
+
+activation_conditions:
+  always: true
+
+# module-q 依赖 module-r
+dependencies:
+  - module-r

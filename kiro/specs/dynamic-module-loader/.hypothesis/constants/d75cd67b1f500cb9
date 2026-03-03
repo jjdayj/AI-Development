@@ -1,4 +1,0 @@
-# file: D:\AI Development\.kiro\specs\dynamic-module-loader\src\logger.py
-# hypothesis_version: 6.151.9
-
-['%Y-%m-%d %H:%M:%S', '-', '=', 'DynamicLoader', 'name', 'priority', 'version', '未知']

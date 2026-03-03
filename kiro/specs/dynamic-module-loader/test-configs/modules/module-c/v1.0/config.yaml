@@ -1,9 +1,0 @@
-# 测试模块配置：module-c
-# 用于测试依赖关系校验
-
-activation_conditions:
-  always: true
-
-# module-c 依赖 module-d（但 module-d 不存在）
-dependencies:
-  - module-d

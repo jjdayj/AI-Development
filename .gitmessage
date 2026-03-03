@@ -1,0 +1,100 @@
+# <type>(<scope>): <subject>
+# |<----  使用最多 50 个字符  ---->|
+
+# 详细描述（可选）
+# |<----  每行使用最多 72 个字符  ---->|
+
+# 关联信息（可选）
+# 版本: vX.Y.Z
+# 影响范围: xxx
+# 破坏性变更: 是/否
+# 向后兼容: 是/否
+
+# --- 提交类型说明 ---
+# feat:     新功能
+# fix:      修复 Bug
+# docs:     文档更新
+# style:    代码格式（不影响功能）
+# refactor: 重构（不是新功能也不是修复）
+# perf:     性能优化
+# test:     测试相关
+# chore:    构建/工具相关
+# init:     初始化项目
+# release:  发布版本
+# revert:   回滚提交
+# merge:    合并分支
+
+# --- 提交范围说明 (Scope) ---
+# 格式: 中文名称 (英文标识)
+# 
+# 工作流模块 (workflow):
+#   - workflow:           工作流模块（整体）
+#   - workflow/main:      主工作流入口
+#   - workflow/native:    原生开发流程
+#   - workflow/secondary: 二次开发流程
+#   - workflow/config:    工作流配置
+#   - workflow/analysis:  需求复杂度分析
+# 
+# 配置文件 (config):
+#   - config:             全局配置
+#   - config/module:      模块配置
+# 
+# Steering 规则 (steering):
+#   - steering:           Steering 规则（整体）
+#   - steering/main:      主入口 Steering
+# 
+# 文档 (docs):
+#   - docs/readme:        README 文档
+#   - docs/changelog:     更新日志
+#   - docs/structure:     项目结构文档
+#   - docs/guide:         使用指南
+# 
+# 其他 (misc):
+#   - deps:               依赖管理
+#   - build:              构建相关
+#   - ci:                 CI/CD 相关
+#   - *:                  全局/多个范围
+
+# --- 提交示例 ---
+init(*): 初始化 VibeCoding 工作流 v2.0
+
+项目重构，创建全新的轻量化工作流系统，专为单人快速开发设计。
+
+核心功能：
+- 实现 VibeCoding 工作流核心功能
+  - 原生功能开发流程（4 阶段）
+  - 二次开发流程（5 阶段，含代码评估）
+  - 需求复杂度分析（4 种情况判断）
+- 支持"改一点测一点"的迭代方式
+- 测试和文档可选配置
+- 所有交互使用中文
+
+项目结构：
+- 创建模块化目录结构
+  - kiro/modules/workflow/v2.0/
+  - kiro/steering/
+  - kiro/config.yaml
+- 实现 Steering 规则文件
+  - workflow_main.md（主工作流入口）
+  - native_development.md（原生开发流程）
+  - secondary_development.md（二次开发流程）
+- 配置文件
+  - meta.yaml（模块元信息）
+  - config.yaml（模块配置，含复杂度标准）
+
+文档：
+- README.md（项目说明）
+- PROJECT_STRUCTURE.md（项目结构说明）
+- CHANGELOG.md（更新日志）
+- GIT_COMMIT_TEMPLATE.md（Git 提交规范）
+- .gitmessage（Git 提交模板）
+
+删除内容：
+- 删除旧版本工作流（v1.0, v1.0-simple, v1.0-complex）
+- 删除未使用的目录（specs/, templates/）
+- 简化 steering/main.md
+
+版本: v2.0.0
+影响范围: *（全新项目）
+破坏性变更: 是（完全重构）
+向后兼容: 否（替代旧版本）

@@ -1,4 +1,0 @@
-# file: D:\AI Development\.kiro\specs\dynamic-module-loader\src\config_reader.py
-# hypothesis_version: 6.151.9
-
-['-', '.kiro', '1. 读取顶层配置', '2. 模块列表', '3. 启用的模块', '=', '__main__', 'always', 'config.yaml', 'enabled', 'modules', 'name', 'priority', 'r', 'utf-8', 'v', 'version', '✓', '✗', '配置文件为空', "配置文件缺少 'modules' 字段", '配置读取器']

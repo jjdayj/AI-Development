@@ -1,4 +1,0 @@
-# file: D:\AI Development\.kiro\specs\dynamic-module-loader\src\prompt_integrator.py
-# hypothesis_version: 6.151.9
-
-['# Prompt 整合完成', '# 模块 Steering 规则', '# 激活的模块', '# 激活的模块\n\n当前没有激活的模块。', '%Y-%m-%d %H:%M:%S', '*此模块没有 Steering 内容*', '---', 'always', 'and', 'conditions', 'content_length', 'directory_match', 'file_type_match', 'integration_time', 'max', 'min', 'modules', 'name', 'or', 'priority', 'priority_range', 'total_content_length', 'total_modules', 'version', '始终激活', '无条件', '自定义条件']

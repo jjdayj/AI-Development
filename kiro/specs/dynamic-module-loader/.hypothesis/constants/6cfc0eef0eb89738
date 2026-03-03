@@ -1,4 +1,0 @@
-# file: D:\AI-Development\.kiro\specs\dynamic-module-loader\src\backup_manager.py
-# hypothesis_version: 6.151.9
-
-[1024, '%Y%m%d_%H%M%S', '%Y-%m-%d %H:%M:%S', '*', '*.bak', '-', '.', '.backups', '.bak', '.pre_rollback.', '=', '_', '__main__', 'is_dir', 'mtime', 'name', 'path', 'size', '备份管理器', '当前备份列表：', '文件', '没有找到备份文件', '目录']

@@ -1,0 +1,112 @@
+# VibeCoding 工作流配置
+
+# 激活条件
+activation_conditions:
+  always: true  # 始终激活
+
+# 默认行为配置
+defaults:
+  # 测试默认行为
+  testing:
+    enabled: false  # 默认关闭测试
+    ask_user: true  # 每次询问用户是否需要测试
+  
+  # 文档默认行为
+  documentation:
+    enabled: true   # 默认生成总结文档
+    ask_user: true  # 每次询问用户是否需要文档
+  
+  # 工作流类型
+  workflow_type: "native"  # native / secondary
+
+# 触发关键词
+trigger_keywords:
+  native:
+    - "开发新功能"
+    - "实现功能"
+    - "添加功能"
+    - "创建模块"
+    - "新建模块"
+    - "设计模块"
+    - "功能设计"
+    - "架构设计"
+    - "重构"
+    - "优化架构"
+  
+  secondary:
+    - "基于"
+    - "二次开发"
+    - "参考"
+    - "借鉴"
+    - "类似"
+    - "改造"
+
+# Phase 2 标准问题模板
+phase2_questions:
+  mandatory:
+    - "功能与现有项目是否有冲突点？"
+  
+  conditional:
+    gui_related:
+      condition: "需求中提到 GUI"
+      questions:
+        - "GUI 交互细节偏好是什么？（如弹窗样式、触发方式）"
+    
+    testing:
+      condition: "默认询问"
+      questions:
+        - "是否需要测试？如果需要，测试复杂度如何？"
+    
+    documentation:
+      condition: "默认询问"
+      questions:
+        - "是否需要生成总结文档？"
+
+# 需求复杂度分析标准
+complexity_analysis:
+  simple:
+    function_points: 3      # 功能点数量
+    files: 5                # 涉及文件数量
+    uncertain_points: 2     # 不确定点数量
+    description: "简单清晰，直接进入工作流"
+  
+  medium:
+    function_points: 8      # 功能点数量
+    files: 15               # 涉及文件数量
+    uncertain_points: 5     # 不确定点数量
+    description: "较复杂但单一需求，建议生成探索文档"
+  
+  complex:
+    function_points: 15     # 功能点数量
+    files: 30               # 涉及文件数量
+    description: "复杂需拆分，建议生成探索文档并拆分需求"
+  
+  too_complex:
+    function_points: 15     # 超过此值视为过于复杂
+    files: 30               # 超过此值视为过于复杂
+    description: "过于复杂，不适合 VibeCoding 工作流"
+
+# 需求探索文档模板
+exploration_doc:
+  path_template: "requirements/exploration/{requirement_name}_exploration.md"
+  sections:
+    - "需求概述"
+    - "功能点列表"
+    - "不确定点列表"
+    - "技术方案初步思路"
+    - "子需求列表（如果需要拆分）"
+    - "依赖关系图（如果需要拆分）"
+    - "开发顺序建议（如果需要拆分）"
+    - "后续对话追踪记录"
+
+# 时间预估（小时）
+time_estimates:
+  native_development: 2.0
+  secondary_development: 3.0
+  per_phase:
+    phase0_evaluation: 0.5
+    phase1_understand: 0.3
+    phase2_analyze: 0.5
+    phase3_plan: 0.3
+    phase4_execute: 1.0
+    phase5_summary: 0.2

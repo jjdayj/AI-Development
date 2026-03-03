@@ -6,10 +6,12 @@
 
 ## 🚀 核心特性
 
-### 🎯 智能化工作流管理
-- **双轨工作流系统**: 自动识别并执行 Prompt 工作流或代码工作流
-- **VibCoding 工作流增强**: 支持需求信息收集、目录结构自动创建、元信息生成
-- **上下文感知**: 基于 current_context.yaml 维护当前工作状态，支持需求切换
+### 🎯 VibeCoding 工作流系统（v2.0 全新）
+- **轻量化流程**: 原生开发 4 阶段，二次开发 5 阶段
+- **改一点测一点**: 小步快跑，每个最小单元完成后立即测试
+- **可选测试和文档**: 根据需求灵活配置，不强制执行
+- **支持二次开发**: 评估现有代码，智能改造和复用
+- **上下文感知**: 基于 current_context.yaml 维护当前工作状态
 
 ### 🔧 模块化架构
 - **动态模块加载器**: 支持模块的条件激活、优先级管理、依赖校验
@@ -31,7 +33,7 @@
 - **🔧 环境配置**: 查看 `附件：Kiro自动生成项目+git+推送.md` - GitHub Token 配置和环境变量设置
 - **📚 模块化配置**: 查看 `.kiro/steering/STEERING_GUIDE.md` - 新架构配置说明
 - **⚡ 动态加载器**: 查看 `.kiro/steering/main.md` - 动态模块加载器使用指南
-- **🔄 工作流增强**: 查看 `.kiro/modules/workflow/v1.0/steering/workflow_selector.md` - 双轨工作流详细说明
+- **🔄 VibeCoding 工作流**: 查看 `kiro/modules/workflow/v2.0/README.md` - 轻量化工作流详细说明
 - **📖 完整文档**: 继续阅读本文档下方内容
 
 ## 🏗️ 项目架构
@@ -46,7 +48,7 @@ AI Development/
 │   │   ├── main.md                 # 主入口 Prompt（动态加载器）
 │   │   └── STEERING_GUIDE.md       # 架构说明文档
 │   ├── modules/                    # 功能模块目录
-│   │   ├── workflow/v1.0/          # 双轨工作流模块
+│   │   ├── workflow/v2.0/          # VibeCoding 工作流模块（新版本）
 │   │   │   ├── steering/           # 工作流 Steering 规则
 │   │   │   ├── config.yaml         # 模块配置
 │   │   │   └── README.md           # 模块文档
@@ -84,11 +86,13 @@ AI Development/
 - **依赖校验**: 自动检测模块依赖关系和循环依赖
 - **版本管理**: 支持同一模块的多版本并存（如 workflow v1.0-simple / v1.0-complex）
 
-#### 🎯 VibCoding 工作流增强
-- **需求信息收集**: 工作流启动时自动收集模块信息（模块名、版本号、需求主题）
-- **目录结构自动创建**: 按标准格式创建 `requirements/{module}/{version}/` 目录
-- **元信息自动生成**: 生成标准化的 meta.yaml 和 requirement.md 文件
-- **需求切换支持**: 支持多需求并行开发和进度保存/恢复
+#### 🎯 VibeCoding 工作流系统（v2.0）
+- **原生开发流程**: 4 阶段轻量化流程（了解需求 → 分析需求 → 制定计划 → 落地执行）
+- **二次开发流程**: 5 阶段流程（评估代码 → 了解需求 → 分析需求 → 制定计划 → 落地执行）
+- **改一点测一点**: 小步快跑，每个最小单元完成后立即测试
+- **可选测试和文档**: 根据需求灵活配置，不强制执行
+- **主动澄清**: Phase 2 主动提问，澄清所有不确定点
+- **支持二次开发**: 评估现有代码的适配性、改造成本、风险
 
 #### 📝 Git 提交自动化联动
 - **上下文感知**: 自动从 current_context.yaml 读取当前需求信息
@@ -265,17 +269,22 @@ pip install requests gitpython python-dotenv
 
 ### 2. 基础使用
 
-#### 启动双轨工作流
+#### 启动 VibeCoding 工作流
 ```
 # 在 Kiro 中输入
-开始新需求开发
+开发新功能
 ```
 
-系统会自动：
+系统会询问你选择工作流类型：
+- A. 原生功能开发流程（4 阶段，2 小时）
+- B. 二次开发流程（5 阶段，3 小时）
+- C. 不进入工作流，正常作答
+
+选择后，系统会自动：
 1. 收集需求信息（模块名、版本号、主题）
 2. 创建标准目录结构
 3. 生成元信息文件
-4. 启动 VibCoding 工作流
+4. 按阶段执行开发流程
 
 #### 智能 Git 提交
 ```
@@ -305,8 +314,8 @@ pip install requests gitpython python-dotenv
 ```yaml
 modules:
   workflow:
-    enabled: true      # 启用双轨工作流
-    version: v1.0
+    enabled: true      # 启用 VibeCoding 工作流
+    version: v2.0
     priority: 200
   
   git-commit:
@@ -321,31 +330,35 @@ modules:
 ```
 
 #### 配置模块激活条件
-编辑 `.kiro/modules/{module}/v1.0/config.yaml`：
+编辑 `kiro/modules/{module}/v1.0/config.yaml`：
 
 ```yaml
-# 示例：只在处理 Markdown 文件时激活文档保存模块
-activation_conditions:
-  file_type_match:
-    - ".md"
+# 示例：配置测试和文档的默认行为
+defaults:
+  testing:
+    enabled: false  # 默认关闭测试
+    ask_user: true  # 每次询问用户
+  
+  documentation:
+    enabled: true   # 默认生成文档
+    ask_user: true  # 每次询问用户
 ```
 
 ## 🔧 高级配置
 
-### 工作流自动切换
-系统可根据文件类型自动选择工作流：
+### VibeCoding 工作流配置
+系统支持灵活的测试和文档配置：
 
 ```yaml
-# .kiro/config.yaml
-workflow:
-  auto_switch:
-    - pattern: "**/*.md"
-      workflow: "prompt"
-      description: "Markdown 文件使用 Prompt 工作流"
-    
-    - pattern: "**/*.py"
-      workflow: "code"
-      description: "Python 文件使用代码工作流"
+# kiro/modules/workflow/v2.0/config.yaml
+defaults:
+  testing:
+    enabled: false  # 默认关闭测试
+    ask_user: true  # 每次询问用户是否需要测试
+  
+  documentation:
+    enabled: true   # 默认生成总结文档
+    ask_user: true  # 每次询问用户是否需要文档
 ```
 
 ### Git 提交安全配置
@@ -372,15 +385,15 @@ security:
 modules:
   workflow:
     enabled: true
-    version: v1.0-simple    # 简化版工作流
-    # version: v1.0-complex  # 完整版工作流
+    version: v2.0    # VibeCoding 工作流（轻量化）
     priority: 200
 ```
 
 ## 📊 使用统计
 
-### 当前启用的模块
-- ✅ **workflow** (v1.0) - 双轨工作流系统
+### 使用统计
+
+- ✅ **workflow** (v2.0) - VibeCoding 工作流系统
 - ✅ **ai-dev** (v1.0) - AI 开发自动化
 - ✅ **git-commit** (v1.0) - Git 提交自动化
 - ✅ **git-rollback** (v1.0) - Git 回滚功能
@@ -412,8 +425,8 @@ A: 使用 Git 回滚功能：`回滚到上一次提交` 或 `回滚指定文件`
 
 ## 📖 详细文档
 
+- **VibeCoding 工作流**: `kiro/modules/workflow/v2.0/README.md`
 - **动态模块加载器**: `.kiro/specs/dynamic-module-loader/README.md`
-- **VibCoding 工作流增强**: `.kiro/specs/vibcoding-workflow-enhancement/README.md`
 - **Git 提交自动化**: `.kiro/specs/git-commit-automation/README.md`
 - **架构设计文档**: `doc/project/prompt-base-architecture/`
 - **QA 对话记录**: `doc/project/dynamic-module-loader/20260303_QA对话记录/`

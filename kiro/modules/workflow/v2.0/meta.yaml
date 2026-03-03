@@ -1,0 +1,29 @@
+# 工作流模块元信息
+
+name: "workflow"
+version: "v2.0"
+display_name: "VibeCoding 工作流"
+description: "轻量化工作流系统，支持原生开发和二次开发，适合单人快速迭代"
+author: "yangzhuo"
+created_at: "2026-03-04"
+updated_at: "2026-03-04"
+category: "workflow"
+
+# 模块特性
+features:
+  - "原生功能开发流程（4 阶段）"
+  - "二次开发流程（5 阶段，含评估）"
+  - "改一点测一点的迭代方式"
+  - "可选的测试和文档生成"
+  - "保留核心资产（状态管理、目录规范）"
+
+# 依赖模块
+dependencies: []
+
+# 兼容性
+compatibility:
+  kiro_version: ">=2.0"
+  replaces:
+    - "workflow/v1.0"
+    - "workflow/v1.0-simple"
+    - "workflow/v1.0-complex"

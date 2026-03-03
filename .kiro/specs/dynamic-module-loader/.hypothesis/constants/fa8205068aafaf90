@@ -1,0 +1,4 @@
+# file: D:\AI-Development\.kiro\specs\dynamic-module-loader\src\dependency_validator.py
+# hypothesis_version: 6.151.9
+
+['dependencies', 'module', 'name', 'reason']

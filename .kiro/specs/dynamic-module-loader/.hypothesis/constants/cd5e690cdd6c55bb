@@ -1,0 +1,4 @@
+# file: D:\AI-Development\.kiro\specs\dynamic-module-loader\src\path_matcher.py
+# hypothesis_version: 6.151.9
+
+['/', '\\', 'match_directory', 'match_file_type', 'match_pattern', 'normalize_path']

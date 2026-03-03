@@ -1,0 +1,4 @@
+# file: D:\AI-Development\.kiro\specs\dynamic-module-loader\src\path_validator.py
+# hypothesis_version: 6.151.9
+
+['-', '.kiro', '1. 项目结构验证', '2. 模块结构验证', '=', 'README.md', '__main__', 'config.yaml', 'main.md', 'meta.yaml', 'modules', 'requirement.md', 'requirements', 'steering', 'workflow', 'workflow_selector.md', '✓ 项目结构验证通过', '✗ 项目结构验证失败', '目录结构验证报告', '错误：.kiro/ 不是一个目录', '错误：.kiro/ 目录不存在']

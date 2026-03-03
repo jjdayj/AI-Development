@@ -1,0 +1,4 @@
+# file: D:\AI-Development\.kiro\specs\dynamic-module-loader\src\activation_calculator.py
+# hypothesis_version: 6.151.9
+
+['always', 'and', 'current_directory', 'current_file_type', 'directory_match', 'file_type_match', 'or']
